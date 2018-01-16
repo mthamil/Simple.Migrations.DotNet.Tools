@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Migrations.DotNet.Tools", "Simple.Migrations.DotNet.Tools\Simple.Migrations.DotNet.Tools.csproj", "{BFDABA96-7C7A-4FBA-8EA4-D70DE1B7309B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Migrations.Tools.DotNet", "Simple.Migrations.Tools.DotNet\Simple.Migrations.Tools.DotNet.csproj", "{BFDABA96-7C7A-4FBA-8EA4-D70DE1B7309B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{509A2316-08C6-4F80-9812-834EE6ACCE96}"
 	ProjectSection(SolutionItems) = preProject

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>dotnet-sm</AssemblyName>
     <PackageType>DotnetCliTool</PackageType>
     <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -11,7 +12,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId></PackageId>
+    <PackageId>Simple.Migrations.Tools.DotNet</PackageId>
     <Description>A Simple.Migrations console runner that uses the .NET CLI.</Description>
     <Authors>Matt Hamilton</Authors>
     <Copyright>Copyright 2018 Matt Hamilton</Copyright>
