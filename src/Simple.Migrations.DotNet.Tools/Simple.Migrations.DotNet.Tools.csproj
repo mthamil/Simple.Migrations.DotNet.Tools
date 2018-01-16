@@ -1,7 +1,35 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.3</TargetFramework>
+    <OutputType>exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <PackageType>DotnetCliTool</PackageType>
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <IncludeSymbols>True</IncludeSymbols>
+    <IsTool>True</IsTool>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId></PackageId>
+    <Description>A Simple.Migrations console runner that uses the .NET CLI.</Description>
+    <Authors>Matt Hamilton</Authors>
+    <Copyright>Copyright 2018 Matt Hamilton</Copyright>
+    <PackageProjectUrl>https://github.com/mthamil/Simple.Migrations.DotNet.Tools</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mthamil/Simple.Migrations.DotNet.Tools</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/mthamil/Simple.Migrations.DotNet.Tools/master/LICENSE</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Simple.Migrations" Version="0.9.18" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="prefercliruntime">
+      <Pack>True</Pack>
+      <PackagePath>\prefercliruntime</PackagePath>
+    </Content>
+  </ItemGroup>
 
 </Project>
