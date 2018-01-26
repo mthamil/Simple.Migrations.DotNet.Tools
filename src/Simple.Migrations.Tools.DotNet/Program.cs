@@ -1,26 +1,16 @@
-﻿using SimpleMigrations;
-using SimpleMigrations.Console;
-using SimpleMigrations.DatabaseProvider;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Text;
+﻿using CommandLine.Core.Hosting;
+using CommandLine.Core.Hosting.CommandLineUtils;
+using System.Threading.Tasks;
 
-namespace Simple.Migrations.DotNet.Tools
+namespace Simple.Migrations.Tools.DotNet
 {
-    static class Program
+    class Program
     {
-        public static void Main(string[] args)
-        {
-            AssemblyMigrationProvider migrationAssembly = null;
-            DbConnection connection = null;
-            var provider = new MssqlDatabaseProvider(connection) { SchemaName = "dbo" };
-            var migrator = new SimpleMigrator(migrationAssembly, provider, new ConsoleLogger());
-            migrator.Load();
-
-            var runner = new ConsoleRunner(migrator);
-
-
-        }
+        public static Task<int> Main(string[] args) =>
+            CommandLineHost.CreateBuilder(args)
+                           .UseCommandLineUtils()
+                           .UseStartup<Startup>()
+                           .Build()
+                           .RunAsync();
     }
 }
