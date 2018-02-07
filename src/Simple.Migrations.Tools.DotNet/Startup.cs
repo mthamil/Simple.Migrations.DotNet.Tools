@@ -16,17 +16,19 @@ namespace Simple.Migrations.Tools.DotNet
             services.AddScoped<CommandLineApplication, DatabaseCommand>();
             services.AddScoped<MigrateCommand>();
 
+            services.AddScoped<CommandLineApplication, MigrationsCommand>();
+            services.AddScoped<ListCommand>();
+
             services.AddScoped<IMigratorFactory, MigratorFactory>();
         }
 
         public void Configure(IApplicationBuilder app)
         {
-            var rootApp = app.ApplicationServices.GetService<RootCommandLineApplication>();
-            using (var rootScope = app.ApplicationServices.CreateScope())
+            app.UseCommands(c =>
             {
-                var commands = rootScope.ServiceProvider.GetServices<CommandLineApplication>();
-                rootApp.Commands.AddRange(commands);
-            }
+                c.Name = "sm";
+                c.VersionOptionFromAssemblyAttributes(typeof(Startup).Assembly);
+            });
         }
     }
 }
