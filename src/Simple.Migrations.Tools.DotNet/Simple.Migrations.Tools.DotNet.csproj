@@ -25,12 +25,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <BuiltProjectOutputGroupOutput Include="$(ProjectDepsFilePath)">
-      <FinalOutputPath>$(ProjectDepsFilePath)</FinalOutputPath>
-    </BuiltProjectOutputGroupOutput>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="CommandLine.Core.Hosting" Version="1.0.0-CI3" />
     <PackageReference Include="CommandLine.Core.Hosting.CommandLineUtils" Version="1.0.0-CI3" />
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.1.1" />
@@ -41,13 +35,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="prefercliruntime">
-      <Pack>True</Pack>
-      <PackagePath>\prefercliruntime</PackagePath>
-    </Content>
-    <None Include="$(OutDir)/CommandLine.Core.Hosting.dll" Pack="true" PackagePath="tools/CommandLine.Core.Hosting.dll" />
-    <None Include="$(OutDir)/CommandLine.Core.Hosting.CommandLineUtils.dll" Pack="true" PackagePath="tools/CommandLine.Core.Hosting.CommandLineUtils.dll" />
-    <None Include="$(OutDir)/McMaster.Extensions.CommandLineUtils.dll" Pack="true" PackagePath="tools/McMaster.Extensions.CommandLineUtils.dll" />
+    <BuiltProjectOutputGroupOutput Include="$(ProjectDepsFilePath)">
+      <FinalOutputPath>$(ProjectDepsFilePath)</FinalOutputPath>
+    </BuiltProjectOutputGroupOutput>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="prefercliruntime" Pack="true" PackagePath="\" />
+    <None Include="$(OutDir)/CommandLine.Core.Hosting.dll" Pack="true" PackagePath="tools" />
+    <None Include="$(OutDir)/CommandLine.Core.Hosting.CommandLineUtils.dll" Pack="true" PackagePath="tools" />
+    <None Include="$(OutDir)/McMaster.Extensions.CommandLineUtils.dll" Pack="true" PackagePath="tools" />
   </ItemGroup>
 
 </Project>
