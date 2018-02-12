@@ -1,9 +1,9 @@
-﻿using McMaster.Extensions.CommandLineUtils;
+﻿using CommandLine.Core.Hosting.Abstractions;
+using CommandLine.Core.Hosting.CommandLineUtils;
+using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
-using CommandLine.Core.Hosting;
 using Simple.Migrations.Tools.DotNet.Commands;
 using Simple.Migrations.Tools.DotNet.Migrations;
-using CommandLine.Core.Hosting.CommandLineUtils;
 
 namespace Simple.Migrations.Tools.DotNet
 {
