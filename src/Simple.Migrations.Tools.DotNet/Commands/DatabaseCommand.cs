@@ -9,6 +9,7 @@ namespace Simple.Migrations.Tools.DotNet.Commands
             Name = "database";
             Description = "";
             Commands.Add(migrateCommand);
+            migrateCommand.Parent = this;
         }
     }
 }

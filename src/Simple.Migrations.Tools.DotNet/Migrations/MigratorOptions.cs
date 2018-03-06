@@ -4,7 +4,7 @@ namespace Simple.Migrations.Tools.DotNet.Migrations
 {
     public class MigratorOptions
     {
-        public MigratorOptions(Assembly migrationsAssembly, 
+        public MigratorOptions(Assembly migrationsAssembly,
                                string connectionString)
         {
             MigrationsAssembly = migrationsAssembly;

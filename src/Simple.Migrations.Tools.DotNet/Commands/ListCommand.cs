@@ -1,15 +1,16 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
 using Simple.Migrations.Tools.DotNet.Migrations;
+using Simple.Migrations.Tools.DotNet.Utilities;
 using System;
 using System.Reflection;
 
-namespace Simple.Migrations.Tools.DotNet
+namespace Simple.Migrations.Tools.DotNet.Commands
 {
 
     public class ListCommand : CommandLineApplication
     {
-        private readonly CommandOption _assembly;
-        private readonly CommandOption _connectionString;
+        private readonly Lazy<CommandOption> _assembly;
+        private readonly Lazy<CommandOption> _connectionString;
         private readonly IMigratorFactory _migratorFactory;
         private readonly IConsole _console;
 
@@ -20,8 +21,8 @@ namespace Simple.Migrations.Tools.DotNet
 
             Name = "list";
             Description = "Lists migrations.";
-            _assembly = Option("--assembly", "The assembly containing migrations.", CommandOptionType.SingleValue);
-            _connectionString = Option("--connection-string", "The database connection string.", CommandOptionType.SingleValue);
+            _assembly = this.InheritedOption("assembly");
+            _connectionString = this.InheritedOption("connection-string");
 
             OnExecute(() => Execute());
         }
@@ -29,8 +30,8 @@ namespace Simple.Migrations.Tools.DotNet
         private int Execute()
         {
             var migrator = _migratorFactory.Create(new MigratorOptions(
-                Assembly.LoadFrom(_assembly.Value()),
-                _connectionString.Value()));
+                Assembly.LoadFrom(_assembly.Value.Value()),
+                _connectionString.Value.Value()));
 
             foreach (var migration in migrator.Migrations)
             {

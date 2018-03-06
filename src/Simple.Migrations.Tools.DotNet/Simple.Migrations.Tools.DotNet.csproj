@@ -25,12 +25,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommandLine.Core.Hosting.CommandLineUtils" Version="1.0.0-CI4" />
+    <PackageReference Include="CommandLine.Core.Hosting.CommandLineUtils" Version="1.0.0-CI7" />
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
     <PackageReference Include="Simple.Migrations" Version="0.9.18" />
     <PackageReference Include="System.Data.SqlClient" Version="4.4.2" />
+    <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +50,21 @@
     <None Include="$(OutDir)/CommandLine.Core.Hosting.Abstractions.dll" Pack="true" PackagePath="tools" />
     <None Include="$(OutDir)/CommandLine.Core.Hosting.CommandLineUtils.dll" Pack="true" PackagePath="tools" />
     <None Include="$(OutDir)/McMaster.Extensions.CommandLineUtils.dll" Pack="true" PackagePath="tools" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\OptionDescriptions.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OptionDescriptions.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\OptionDescriptions.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OptionDescriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
