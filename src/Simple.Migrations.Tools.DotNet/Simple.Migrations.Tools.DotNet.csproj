@@ -18,10 +18,10 @@
     <Description>A Simple.Migrations console runner that uses the .NET CLI.</Description>
     <Authors>Matt Hamilton</Authors>
     <Copyright>Copyright 2018 Matt Hamilton</Copyright>
-    <PackageProjectUrl>https://github.com/mthamil/Simple.Migrations.DotNet.Tools</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/mthamil/Simple.Migrations.DotNet.Tools</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/mthamil/Simple.Migrations.Tools.DotNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mthamil/Simple.Migrations.Tools.DotNet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/mthamil/Simple.Migrations.DotNet.Tools/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/mthamil/Simple.Migrations.Tools.DotNet/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
