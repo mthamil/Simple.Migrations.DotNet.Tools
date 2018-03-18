@@ -45,7 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="prefercliruntime" Pack="true" PackagePath="\" />
+    <Content Include="prefercliruntime" Pack="true" PackagePath="" />
     <None Include="$(OutDir)/CommandLine.Core.Hosting.dll" Pack="true" PackagePath="tools" />
     <None Include="$(OutDir)/CommandLine.Core.Hosting.Abstractions.dll" Pack="true" PackagePath="tools" />
     <None Include="$(OutDir)/CommandLine.Core.Hosting.CommandLineUtils.dll" Pack="true" PackagePath="tools" />
@@ -58,9 +58,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>OptionDescriptions.resx</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="Resources\OptionDescriptions.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OptionDescriptions.Designer.cs</LastGenOutput>
