@@ -2,9 +2,9 @@
 
 namespace Simple.Migrations.Tools.DotNet.Migrations
 {
-    public interface IMigrationProjectInfoLocator
+    public interface IProjectInfoDiscoverer
     {
-        Task<MigratorOptions> LocateAsync(
+        Task<ProjectInfo> DiscoverAsync(
             bool shouldBuildIfNeeded,
             string configuration,
             string targetFramework,

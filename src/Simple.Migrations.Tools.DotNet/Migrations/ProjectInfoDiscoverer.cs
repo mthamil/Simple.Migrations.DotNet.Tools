@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace Simple.Migrations.Tools.DotNet.Migrations
 {
-    public class MigrationProjectInfoLocator : IMigrationProjectInfoLocator
+    public class ProjectInfoDiscoverer : IProjectInfoDiscoverer
     {
         private readonly IConsole _console;
         private readonly IFileSystem _fileSystem;
@@ -20,7 +20,7 @@ namespace Simple.Migrations.Tools.DotNet.Migrations
 
         private readonly string _targetEnvironmentName;
 
-        public MigrationProjectInfoLocator(IConsole console, IFileSystem fileSystem, IProjectBuilder projectBuilder)
+        public ProjectInfoDiscoverer(IConsole console, IFileSystem fileSystem, IProjectBuilder projectBuilder)
         {
             _console = console ?? throw new ArgumentNullException(nameof(console));
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
@@ -29,7 +29,7 @@ namespace Simple.Migrations.Tools.DotNet.Migrations
             _targetEnvironmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
         }
 
-        public async Task<MigratorOptions> LocateAsync(
+        public async Task<ProjectInfo> DiscoverAsync(
             bool shouldBuildIfNeeded,
             string configuration,
             string targetFramework,
@@ -68,7 +68,7 @@ namespace Simple.Migrations.Tools.DotNet.Migrations
                 connectionString = connectionString ?? FindConnectionString(projectFile, connectionStringName);
             }
 
-            return new MigratorOptions(
+            return new ProjectInfo(
                 Assembly.LoadFrom(assembly),
                 connectionString);
         }

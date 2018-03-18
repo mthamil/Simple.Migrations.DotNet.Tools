@@ -1,10 +1,10 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Localization;
 using Simple.Migrations.Tools.DotNet.Resources;
+using Simple.Migrations.Tools.DotNet.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Simple.Migrations.Tools.DotNet.Commands.Options
 {
@@ -29,8 +29,7 @@ namespace Simple.Migrations.Tools.DotNet.Commands.Options
             return this;
         }
 
-        private static string CreateResourceKey(string longName) =>
-            Regex.Replace(longName, "(-|^)[a-z]", m => m.Value.TrimStart('-').ToUpperInvariant());
+        private static string CreateResourceKey(string longName) => longName.ToPascalCase();
 
         public IEnumerator<CommandOption> GetEnumerator() => _options.GetEnumerator();
 

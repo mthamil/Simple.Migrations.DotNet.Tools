@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Simple.Migrations.Tools.DotNet.Commands.Options;
 
 namespace Simple.Migrations.Tools.DotNet.Migrations
 {
-    public class ProjectNotFoundException : Exception
+    public class ProjectNotFoundException : CommandOptionException
     {
-        public ProjectNotFoundException(string message) : base(message) { }
+        public ProjectNotFoundException(string message) 
+            : base("project", message) { }
     }
 }

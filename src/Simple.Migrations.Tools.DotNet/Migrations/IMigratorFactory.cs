@@ -1,9 +1,10 @@
 ﻿using SimpleMigrations;
+using System.Threading.Tasks;
 
 namespace Simple.Migrations.Tools.DotNet.Migrations
 {
     public interface IMigratorFactory
     {
-        ISimpleMigrator Create(MigratorOptions options);
+        Task<ISimpleMigrator> CreateAsync(MigrationOptions options);
     }
 }

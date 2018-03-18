@@ -1,37 +1,32 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using Simple.Migrations.Tools.DotNet.Commands.Options;
 using Simple.Migrations.Tools.DotNet.Migrations;
-using Simple.Migrations.Tools.DotNet.Utilities;
 using System;
-using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Simple.Migrations.Tools.DotNet.Commands
 {
-
     public class ListCommand : CommandLineApplication
     {
-        private readonly Lazy<CommandOption> _assembly;
-        private readonly Lazy<CommandOption> _connectionString;
+        private readonly ICommonOptions _commonOptions;
         private readonly IMigratorFactory _migratorFactory;
         private readonly IConsole _console;
 
-        public ListCommand(IMigratorFactory migratorFactory, IConsole console)
+        public ListCommand(IConsole console, ICommonOptions commonOptions, IMigratorFactory migratorFactory)
         {
-            _migratorFactory = migratorFactory ?? throw new ArgumentNullException(nameof(migratorFactory));
             _console = console ?? throw new ArgumentNullException(nameof(console));
+            _commonOptions = commonOptions ?? throw new ArgumentNullException(nameof(commonOptions));
+            _migratorFactory = migratorFactory ?? throw new ArgumentNullException(nameof(migratorFactory));
 
             Name = "list";
             Description = "Lists migrations.";
-            _assembly = this.InheritedOption("assembly");
-            _connectionString = this.InheritedOption("connection-string");
 
-            OnExecute(() => Execute());
+            OnExecute(() => ExecuteAsync());
         }
 
-        private int Execute()
+        private async Task<int> ExecuteAsync()
         {
-            var migrator = _migratorFactory.Create(new MigratorOptions(
-                Assembly.LoadFrom(_assembly.Value.Value()),
-                _connectionString.Value.Value()));
+            var migrator = await _migratorFactory.CreateAsync(_commonOptions.Map<MigrationOptions>());
 
             foreach (var migration in migrator.Migrations)
             {

@@ -38,7 +38,7 @@ namespace Simple.Migrations.Tools.DotNet
 
             services.AddScoped<IMigratorFactory, MigratorFactory>();
             services.AddScoped<IProjectBuilder, ProjectBuilder>();
-            services.AddScoped<IMigrationProjectInfoLocator, MigrationProjectInfoLocator>();
+            services.AddScoped<IProjectInfoDiscoverer, ProjectInfoDiscoverer>();
         }
 
         public void Configure(IApplicationBuilder app)
