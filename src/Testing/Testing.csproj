@@ -9,7 +9,6 @@
     <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
-    <IsTool>True</IsTool>
   </PropertyGroup>
 
   <PropertyGroup>
