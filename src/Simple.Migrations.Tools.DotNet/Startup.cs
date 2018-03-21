@@ -45,7 +45,7 @@ namespace Simple.Migrations.Tools.DotNet
         {
             app.UseCommands(c =>
             {
-                c.Name = "sm";
+                c.Name = "dotnet sm";
                 c.VersionOptionFromAssemblyAttributes(typeof(Startup).Assembly);
                 c.Options.AddRange(app.ApplicationServices.GetService<ICommonOptions>());
             });

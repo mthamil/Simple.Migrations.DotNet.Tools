@@ -9,7 +9,6 @@
     <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
-    <IsTool>True</IsTool>
     <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
@@ -46,10 +45,10 @@
 
   <ItemGroup>
     <Content Include="prefercliruntime" Pack="true" PackagePath="" />
-    <None Include="$(OutDir)/CommandLine.Core.Hosting.dll" Pack="true" PackagePath="tools" />
-    <None Include="$(OutDir)/CommandLine.Core.Hosting.Abstractions.dll" Pack="true" PackagePath="tools" />
-    <None Include="$(OutDir)/CommandLine.Core.Hosting.CommandLineUtils.dll" Pack="true" PackagePath="tools" />
-    <None Include="$(OutDir)/McMaster.Extensions.CommandLineUtils.dll" Pack="true" PackagePath="tools" />
+    <None Include="$(OutDir)/CommandLine.Core.Hosting.dll" Pack="true" PackagePath="lib\$(TargetFramework)" />
+    <None Include="$(OutDir)/CommandLine.Core.Hosting.Abstractions.dll" Pack="true" PackagePath="lib\$(TargetFramework)" />
+    <None Include="$(OutDir)/CommandLine.Core.Hosting.CommandLineUtils.dll" Pack="true" PackagePath="lib\$(TargetFramework)" />
+    <None Include="$(OutDir)/McMaster.Extensions.CommandLineUtils.dll" Pack="true" PackagePath="lib\$(TargetFramework)" />
   </ItemGroup>
 
   <ItemGroup>
