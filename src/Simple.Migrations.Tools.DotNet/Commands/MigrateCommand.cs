@@ -1,5 +1,6 @@
-﻿using McMaster.Extensions.CommandLineUtils;
-using Simple.Migrations.Tools.DotNet.Commands.Options;
+﻿using CommandLine.Core.Hosting.CommandLineUtils.Options;
+using CommandLine.Core.Hosting.CommandLineUtils.Utilities;
+using McMaster.Extensions.CommandLineUtils;
 using Simple.Migrations.Tools.DotNet.Migrations;
 using System;
 using System.Linq;
@@ -14,10 +15,10 @@ namespace Simple.Migrations.Tools.DotNet.Commands
 
         private readonly CommandArgument _migration;
         private readonly CommandOption _byName;
-        private readonly ICommonOptions _commonOptions;
+        private readonly ISharedOptions _commonOptions;
 
         public MigrateCommand(IConsole console,
-                              ICommonOptions commonOptions,
+                              ISharedOptions commonOptions,
                               IMigratorFactory migratorFactory)
         {
             _console = console ?? throw new ArgumentNullException(nameof(console));

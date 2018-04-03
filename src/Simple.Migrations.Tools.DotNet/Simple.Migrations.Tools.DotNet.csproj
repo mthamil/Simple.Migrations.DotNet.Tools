@@ -24,7 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommandLine.Core.Hosting.CommandLineUtils" Version="1.0.0-CI7" />
+    <PackageReference Include="CommandLine.Core.Hosting.CommandLineUtils" Version="1.0.0-CI17" />
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />

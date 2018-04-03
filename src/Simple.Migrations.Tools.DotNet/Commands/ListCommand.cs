@@ -1,5 +1,6 @@
-﻿using McMaster.Extensions.CommandLineUtils;
-using Simple.Migrations.Tools.DotNet.Commands.Options;
+﻿using CommandLine.Core.Hosting.CommandLineUtils.Options;
+using CommandLine.Core.Hosting.CommandLineUtils.Utilities;
+using McMaster.Extensions.CommandLineUtils;
 using Simple.Migrations.Tools.DotNet.Migrations;
 using System;
 using System.Threading.Tasks;
@@ -8,11 +9,11 @@ namespace Simple.Migrations.Tools.DotNet.Commands
 {
     public class ListCommand : CommandLineApplication
     {
-        private readonly ICommonOptions _commonOptions;
+        private readonly ISharedOptions _commonOptions;
         private readonly IMigratorFactory _migratorFactory;
         private readonly IConsole _console;
 
-        public ListCommand(IConsole console, ICommonOptions commonOptions, IMigratorFactory migratorFactory)
+        public ListCommand(IConsole console, ISharedOptions commonOptions, IMigratorFactory migratorFactory)
         {
             _console = console ?? throw new ArgumentNullException(nameof(console));
             _commonOptions = commonOptions ?? throw new ArgumentNullException(nameof(commonOptions));
