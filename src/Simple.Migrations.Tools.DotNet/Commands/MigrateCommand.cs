@@ -47,7 +47,7 @@ namespace Simple.Migrations.Tools.DotNet.Commands
             }
             else
             {
-                var migrationVersion = _byName.IsOn()
+                var migrationVersion = _byName.HasValue()
                     ? migrator.Migrations.SingleOrDefault(m => _migration.Value.Equals(m.TypeInfo?.Name, StringComparison.OrdinalIgnoreCase))?.Version
                     : Int64.TryParse(_migration.Value, out var result)
                         ? result
