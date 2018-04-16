@@ -1,5 +1,5 @@
 ﻿using CommandLine.Core.Hosting;
-using CommandLine.Core.Hosting.CommandLineUtils;
+using CommandLine.Core.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 

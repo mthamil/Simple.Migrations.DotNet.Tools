@@ -1,42 +1,38 @@
-﻿using CommandLine.Core.Hosting.CommandLineUtils.Options;
-using CommandLine.Core.Hosting.CommandLineUtils.Utilities;
+﻿using CommandLine.Core.CommandLineUtils.Utilities;
 using McMaster.Extensions.CommandLineUtils;
 using Simple.Migrations.Tools.DotNet.Migrations;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Simple.Migrations.Tools.DotNet.Commands
 {
-    public class MigrateCommand : CommandLineApplication
+    public class MigrateCommand
     {
         private readonly IConsole _console;
         private readonly IMigratorFactory _migratorFactory;
 
         private readonly CommandArgument _migration;
         private readonly CommandOption _byName;
-        private readonly ISharedOptions _commonOptions;
+        private readonly IEnumerable<CommandOption> _options;
 
         public MigrateCommand(IConsole console,
-                              ISharedOptions commonOptions,
+                              IEnumerable<CommandOption> options,
+                              IEnumerable<CommandArgument> arguments,
                               IMigratorFactory migratorFactory)
         {
             _console = console ?? throw new ArgumentNullException(nameof(console));
-            _commonOptions = commonOptions ?? throw new ArgumentNullException(nameof(commonOptions));
+            _options = options ?? throw new ArgumentNullException(nameof(options));
             _migratorFactory = migratorFactory ?? throw new ArgumentNullException(nameof(migratorFactory));
 
-            Name = "migrate";
-            Description = "Migrates a database.";
-
-            _migration = Argument("migration", "The migration version to migrate to. If not provided, the latest version is chosen by default");
-            _byName = Option("--by-name", "Whether to find a migration by name or number.", CommandOptionType.NoValue);
-
-            OnExecute(() => ExecuteAsync());
+            _migration = arguments.Single(a => a.Name == "migration");
+            _byName = options.Single(o => o.LongName == "by-name");
         }
 
-        private async Task<int> ExecuteAsync()
+        public async Task<int> OnExecuteAsync()
         {
-            var migrator = await _migratorFactory.CreateAsync(_commonOptions.Map<MigrationOptions>());
+            var migrator = await _migratorFactory.CreateAsync(_options.Map<MigrationOptions>());
 
             if (_migration.Value == null)
             {

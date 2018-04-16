@@ -1,33 +1,28 @@
-﻿using CommandLine.Core.Hosting.CommandLineUtils.Options;
-using CommandLine.Core.Hosting.CommandLineUtils.Utilities;
+﻿using CommandLine.Core.CommandLineUtils.Utilities;
 using McMaster.Extensions.CommandLineUtils;
 using Simple.Migrations.Tools.DotNet.Migrations;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Simple.Migrations.Tools.DotNet.Commands
 {
-    public class ListCommand : CommandLineApplication
+    public class ListCommand
     {
-        private readonly ISharedOptions _commonOptions;
+        private readonly IEnumerable<CommandOption> _options;
         private readonly IMigratorFactory _migratorFactory;
         private readonly IConsole _console;
 
-        public ListCommand(IConsole console, ISharedOptions commonOptions, IMigratorFactory migratorFactory)
+        public ListCommand(IConsole console, IEnumerable<CommandOption> options, IMigratorFactory migratorFactory)
         {
             _console = console ?? throw new ArgumentNullException(nameof(console));
-            _commonOptions = commonOptions ?? throw new ArgumentNullException(nameof(commonOptions));
+            _options = options ?? throw new ArgumentNullException(nameof(options));
             _migratorFactory = migratorFactory ?? throw new ArgumentNullException(nameof(migratorFactory));
-
-            Name = "list";
-            Description = "Lists migrations.";
-
-            OnExecute(() => ExecuteAsync());
         }
 
-        private async Task<int> ExecuteAsync()
+        public async Task<int> OnExecuteAsync()
         {
-            var migrator = await _migratorFactory.CreateAsync(_commonOptions.Map<MigrationOptions>());
+            var migrator = await _migratorFactory.CreateAsync(_options.Map<MigrationOptions>());
 
             foreach (var migration in migrator.Migrations)
             {

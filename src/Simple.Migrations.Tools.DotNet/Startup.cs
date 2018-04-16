@@ -1,6 +1,6 @@
 ﻿using CommandLine.Core.Hosting.Abstractions;
-using CommandLine.Core.Hosting.CommandLineUtils;
-using CommandLine.Core.Hosting.CommandLineUtils.Options;
+using CommandLine.Core.CommandLineUtils;
+using CommandLine.Core.CommandLineUtils.Options;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
 using Simple.Migrations.Tools.DotNet.Commands;
@@ -20,22 +20,6 @@ namespace Simple.Migrations.Tools.DotNet
 
             services.AddSingleton<IFileSystem, PhysicalFileSystem>();
 
-            services.AddCommands(cmds =>
-                cmds.Base<DatabaseCommand>()
-                    .Child<MigrateCommand>()
-                    .Base<MigrationsCommand>()
-                    .Child<ListCommand>());
-
-            services.AddCommonOptions(opts =>
-                opts.Option("-c|--configuration")
-                    .Option("-f|--framework")
-                    .Option("-p|--project")
-                    .Option("--no-build", type: CommandOptionType.NoValue)
-                    .Option("--assembly")
-                    .Option("--connection-string")
-                    .Option("--connection-string-name")
-                    .WithDescriptionsFrom(s => s.GetService<CommandDescriptionProvider<OptionDescriptions>>()));
-
             services.AddSingleton<SimpleMigrations.ILogger, SimpleMigrations.Console.ConsoleLogger>();
 
             services.AddScoped<IMigratorFactory, MigratorFactory>();
@@ -49,6 +33,28 @@ namespace Simple.Migrations.Tools.DotNet
             {
                 c.Name = "dotnet sm";
                 c.VersionOptionFromAssemblyAttributes(typeof(Startup).Assembly);
+
+                c.Options(opts =>
+                    opts.Option("-c|--configuration", inherited: true)
+                        .Option("-f|--framework", inherited: true)
+                        .Option("-p|--project", inherited: true)
+                        .Option("--no-build", type: CommandOptionType.NoValue, inherited: true)
+                        .Option("--assembly", inherited: true)
+                        .Option("--connection-string", inherited: true)
+                        .Option("--connection-string-name", inherited: true)
+                        .WithDescriptionsFrom(s => s.GetService<CommandDescriptionProvider<OptionDescriptions>>()));
+
+                c.Command("database", d =>
+                {
+                    d.Command<MigrateCommand>("migrate", m =>
+                    {
+                        m.Argument("migration", "The migration version to migrate to. If not provided, the latest version is chosen by default");
+                        m.Option("--by-name", "Whether to find a migration by name or number.", CommandOptionType.NoValue);
+                    });
+                });
+
+                c.Command("migrations", m =>
+                    m.Command<ListCommand>("list"));
             });
         }
     }
