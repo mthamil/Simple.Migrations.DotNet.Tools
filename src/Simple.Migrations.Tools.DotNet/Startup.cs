@@ -1,13 +1,13 @@
-﻿using CommandLine.Core.Hosting.Abstractions;
-using CommandLine.Core.CommandLineUtils;
-using CommandLine.Core.CommandLineUtils.Options;
+﻿using CommandLine.Core.CommandLineUtils;
+using CommandLine.Core.Hosting.Abstractions;
+using CommandLineUtils.Extensions;
+using CommandLineUtils.Extensions.Conventions;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
 using Simple.Migrations.Tools.DotNet.Commands;
 using Simple.Migrations.Tools.DotNet.Migrations;
 using Simple.Migrations.Tools.DotNet.Resources;
 using Simple.Migrations.Tools.DotNet.Utilities.IO;
-using Simple.Migrations.Tools.DotNet.Utilities.Localization;
 
 namespace Simple.Migrations.Tools.DotNet
 {
@@ -15,8 +15,9 @@ namespace Simple.Migrations.Tools.DotNet
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLocalization()
-                    .AddTransient<CommandDescriptionProvider<OptionDescriptions>>();
+            services.AddCommandLineUtils();
+
+            services.AddLocalization();
 
             services.AddSingleton<IFileSystem, PhysicalFileSystem>();
 
@@ -29,10 +30,11 @@ namespace Simple.Migrations.Tools.DotNet
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseCommands(c =>
+            app.UseCommandLineUtils(c =>
             {
                 c.Name = "dotnet sm";
                 c.VersionOptionFromAssemblyAttributes(typeof(Startup).Assembly);
+                c.Conventions.UseOptionProperties();
 
                 c.Options(opts =>
                     opts.Option("-c|--configuration", inherited: true)
@@ -42,7 +44,7 @@ namespace Simple.Migrations.Tools.DotNet
                         .Option("--assembly", inherited: true)
                         .Option("--connection-string", inherited: true)
                         .Option("--connection-string-name", inherited: true)
-                        .WithDescriptionsFrom(s => s.GetService<CommandDescriptionProvider<OptionDescriptions>>()));
+                        .WithDescriptionsFromResources<OptionDescriptions>());
 
                 c.Command("database", d =>
                 {

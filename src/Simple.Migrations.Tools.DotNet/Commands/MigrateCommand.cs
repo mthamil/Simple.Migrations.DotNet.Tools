@@ -1,5 +1,4 @@
-﻿using CommandLine.Core.CommandLineUtils.Utilities;
-using McMaster.Extensions.CommandLineUtils;
+﻿using McMaster.Extensions.CommandLineUtils;
 using Simple.Migrations.Tools.DotNet.Migrations;
 using System;
 using System.Collections.Generic;
@@ -14,25 +13,24 @@ namespace Simple.Migrations.Tools.DotNet.Commands
         private readonly IMigratorFactory _migratorFactory;
 
         private readonly CommandArgument _migration;
-        private readonly CommandOption _byName;
-        private readonly IEnumerable<CommandOption> _options;
 
         public MigrateCommand(IConsole console,
-                              IEnumerable<CommandOption> options,
                               IEnumerable<CommandArgument> arguments,
                               IMigratorFactory migratorFactory)
         {
             _console = console ?? throw new ArgumentNullException(nameof(console));
-            _options = options ?? throw new ArgumentNullException(nameof(options));
             _migratorFactory = migratorFactory ?? throw new ArgumentNullException(nameof(migratorFactory));
 
             _migration = arguments.Single(a => a.Name == "migration");
-            _byName = options.Single(o => o.LongName == "by-name");
         }
+
+        public bool ByName { get; set; }
+
+        public MigrationOptions MigrationOptions { get; set; }
 
         public async Task<int> OnExecuteAsync()
         {
-            var migrator = await _migratorFactory.CreateAsync(_options.Map<MigrationOptions>());
+            var migrator = await _migratorFactory.CreateAsync(MigrationOptions);
 
             if (_migration.Value == null)
             {
@@ -43,7 +41,7 @@ namespace Simple.Migrations.Tools.DotNet.Commands
             }
             else
             {
-                var migrationVersion = _byName.HasValue()
+                var migrationVersion = ByName
                     ? migrator.Migrations.SingleOrDefault(m => _migration.Value.Equals(m.TypeInfo?.Name, StringComparison.OrdinalIgnoreCase))?.Version
                     : Int64.TryParse(_migration.Value, out var result)
                         ? result
